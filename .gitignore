@@ -1,0 +1,15 @@
+.vscode/
+.idea/
+.local/
+bin/
+
+.env
+*.env
+*.log
+__debug*
+main
+proxy
+
+.claude/
+.github/
+*.local.md
