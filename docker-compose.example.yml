@@ -1,0 +1,13 @@
+name: "example"
+
+services:
+  we_proxy:
+    container_name: we_proxy
+    image: poccomaxa/warera-proxy:latest
+    restart: unless-stopped
+    environment:
+      - WARERA_TOKEN=<your-token>
+      - WARERA_BATCH_SIZE=50
+      - WARERA_REQUESTS_PER_MINUTE=200
+    ports:
+      - 127.0.0.1:<PORT>:8080
