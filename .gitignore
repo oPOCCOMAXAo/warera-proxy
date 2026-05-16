@@ -13,3 +13,4 @@ proxy
 .claude/
 .github/
 *.local.md
+*.local.yml

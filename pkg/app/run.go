@@ -10,6 +10,7 @@ import (
 	"github.com/opoccomaxao/warera-proxy/pkg/services/lifecycle"
 	"github.com/opoccomaxao/warera-proxy/pkg/services/logger"
 	"github.com/opoccomaxao/warera-proxy/pkg/services/server"
+	"github.com/opoccomaxao/warera-proxy/pkg/services/warera"
 )
 
 func Run() error {
@@ -38,7 +39,16 @@ func Run() error {
 		logger,
 	)
 
-	err = api.MakePackage(server)
+	warera := warera.MakePackage(
+		config.Warera,
+		lifecycle,
+		logger,
+	)
+
+	err = api.MakePackage(
+		server,
+		warera,
+	)
 	if err != nil {
 		return err
 	}

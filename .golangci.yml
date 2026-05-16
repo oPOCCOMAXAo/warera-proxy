@@ -32,6 +32,7 @@ linters:
         - id
         - i
         - ok
+      max-distance: 20
     funcorder:
       constructor: true
       struct-method: false
@@ -70,6 +71,10 @@ linters:
       - path: pkg/models
         linters:
           - gochecknoglobals
+      - path: pkg/api/
+        linters:
+          - varnamelen
+        text: "parameter name 'w' is too short"
 
 formatters:
   enable:

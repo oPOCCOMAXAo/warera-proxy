@@ -46,7 +46,11 @@ func (c *Client) RawRequest(
 	c.wakeUpQueue()
 	qreq.WG.Wait()
 
-	return res, err
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }
 
 //nolint:cyclop,funlen
@@ -101,12 +105,6 @@ func (c *Client) execBatchRequest(
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode != http.StatusOK {
-		return pkgerr.WithStack(apperr.NewExportedError(err,
-			slog.Int("status", res.StatusCode),
-		))
-	}
-
 	rawRes, err := io.ReadAll(res.Body)
 	if err != nil {
 		return pkgerr.WithStack(apperr.NewExportedError(err))
@@ -114,7 +112,11 @@ func (c *Client) execBatchRequest(
 
 	err = json.Unmarshal(rawRes, &results)
 	if err != nil {
-		return pkgerr.WithStack(apperr.NewExportedError(err))
+		return pkgerr.WithStack(apperr.NewExportedError(
+			apperr.ErrInvalidWareraResponse,
+			slog.String("url", urlFull),
+			slog.String("response", string(rawRes)),
+		))
 	}
 
 	// ensure results has enough capacity to avoid out of range errors in case the response is shorter than the requests.

@@ -14,7 +14,11 @@ type ExportedError struct {
 func NewExportedError(
 	err error,
 	attrs ...slog.Attr,
-) *ExportedError {
+) error {
+	if err == nil {
+		panic("err must not be nil")
+	}
+
 	return &ExportedError{
 		OriginalError: err,
 		Metadata:      attrs,
@@ -24,7 +28,6 @@ func NewExportedError(
 func (e *ExportedError) Error() string {
 	var res strings.Builder
 
-	res.WriteString("internal error: ")
 	res.WriteString(e.OriginalError.Error())
 
 	for i, attr := range e.Metadata {
