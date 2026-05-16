@@ -4,6 +4,16 @@ build:
 lint:
 	golangci-lint-v2 run
 
+test:
+	go test -race ./...
+
+bench:
+	go run ./cmd/bench \
+	-addr http://localhost:8084 \
+	-method get \
+	-duration 120s \
+	-concurrency 100
+
 build-docker:
 	docker build -t poccomaxa/warera-proxy:latest .
 

@@ -7,7 +7,6 @@ import (
 	"github.com/opoccomaxao/warera-proxy/pkg/services/warera"
 )
 
-//nolint:errchkjson
 func (s *Service) TRPCPost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 

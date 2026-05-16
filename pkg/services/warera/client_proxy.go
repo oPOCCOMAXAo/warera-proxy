@@ -114,8 +114,9 @@ func (c *Client) execProxyBatchRequest(
 	for i, method := range methods {
 		wg.Go(func() {
 			res[i] = c.proxySingleRequest(ctx, ProxyRequest{
-				Methods: method,
-				Input:   params[i],
+				Methods:     method,
+				Input:       params[i],
+				isJSONValid: true,
 			})
 		})
 	}

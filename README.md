@@ -87,3 +87,34 @@ All responses are `Content-Type: application/json`. On proxy errors, the respons
   }
 }
 ```
+
+## Benchmark
+
+Can achieve theoretical maximum 166 requests per second.
+
+```txt
+Warming up http://localhost:8084 ...
+Benchmarking http://localhost:8084 for 2m0s with 100 goroutines (get) ...
+Completed 20051 requests in 2m0.451s (166 req/s)
+
+=== Benchmark Report ===
+Target:         http://localhost:8084
+Method:         get
+Duration:       2m0s
+Concurrency:    100
+Total requests: 20051
+
+--- Latency ---
+  Min:  55.067345ms
+  P50:  600.021319ms
+  P95:  636.919146ms
+  P99:  829.232335ms
+  Max:  878.895575ms
+  Avg:  599.980101ms
+
+--- Status Codes ---
+  200: 20051
+
+Throughput: 167 req/s
+Success rate: 100.0%
+```
