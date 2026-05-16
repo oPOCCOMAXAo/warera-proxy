@@ -8,7 +8,25 @@ Batch size and number of requests per minute are configurable, so if actual ware
 
 ## Docker
 
-Compose example: [here](./docker-compose.example.yml)
+### Compose example
+
+```yml
+name: "example"
+
+services:
+  we_proxy:
+    container_name: we_proxy
+    image: poccomaxa/warera-proxy:latest
+    restart: unless-stopped
+    environment:
+      - WARERA_TOKEN=<your-token>
+      - WARERA_BATCH_SIZE=50
+      - WARERA_REQUESTS_PER_MINUTE=200
+    ports:
+      - 127.0.0.1:<PORT>:8080
+```
+
+Replace `<your-token>` with your warera API token and `<PORT>` with your preferred port.
 
 ### Build
 
@@ -70,7 +88,7 @@ Content-Type: application/json
 {"userId": "..."}
 ```
 
-### Processing pipeline
+### Errors
 
 All responses are `Content-Type: application/json`. On proxy errors, the response follows the tRPC error format:
 
