@@ -8,4 +8,5 @@ require (
 	github.com/caarlos0/env/v11 v11.4.1
 	github.com/golang-cz/devslog v0.0.15
 	github.com/pkg/errors v0.9.1
+	golang.org/x/time v0.15.0
 )

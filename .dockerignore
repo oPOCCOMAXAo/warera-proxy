@@ -1,0 +1,6 @@
+.git
+.local
+.vscode
+.claude
+bin
+*.md
