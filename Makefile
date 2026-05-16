@@ -1,3 +1,5 @@
+VERSION ?= $(shell git describe --tags --always --dirty)
+
 build:
 	go build -o bin/proxy cmd/proxy/main.go
 
@@ -15,7 +17,8 @@ bench:
 	-concurrency 100
 
 build-docker:
-	docker build -t poccomaxa/warera-proxy:latest .
+	docker build -t poccomaxa/warera-proxy:latest -t poccomaxa/warera-proxy:$(VERSION) .
 
 push-docker:
 	docker push poccomaxa/warera-proxy:latest
+	docker push poccomaxa/warera-proxy:$(VERSION)
